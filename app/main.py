@@ -22,7 +22,7 @@ app = FastAPI(lifespan=lifespan)
 
 @app.post("/notes", response_model=NoteReadShemas)
 async def create_note(
-    note_in: NoteCreate, session: AsyncSession = Depends(db_helper.get_db_session)
+    note_in: NoteCreateSchemas, session: AsyncSession = Depends(db_helper.get_db_session)
 ):
     # Превращаем схему Pydantic в модель SQLAlchemy
     new_note = Note(**note_in.model_dump())
