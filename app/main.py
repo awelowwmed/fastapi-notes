@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from sqlalchemy.exc.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from contextlib import asynccontextmanager
 
