@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 
 from .database import db_helper, Base
 from .models import Note
-from .schemas import NoteCreate, NoteRead
+from .schemas import NoteCreateSchemas, NoteReadShemas
 
 
 @asynccontextmanager
