@@ -20,7 +20,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
-@app.post("/notes", response_model=NoteRead)
+@app.post("/notes", response_model=NoteReadShemas)
 async def create_note(
     note_in: NoteCreate, session: AsyncSession = Depends(db_helper.get_db_session)
 ):
@@ -33,7 +33,7 @@ async def create_note(
 
 
 # 3. Ручка получения всех заметок (GET)
-@app.get("/notes", response_model=list[NoteRead])
+@app.get("/notes", response_model=list[NoteCreateSchemas])
 async def get_notes(session: AsyncSession = Depends(db_helper.get_db_session)):
     # Делаем асинхронный запрос SELECT
     stmt = select(Note).order_by(Note.id)
