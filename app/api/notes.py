@@ -23,7 +23,7 @@ async def create_note(
 
 @router.post('/update_note/{note_id}')
 async def update_note(note_text: NoteCreateSchemas, note_id: int, session: AsyncSession = Depends(get_session)):
-    return await crud_notes.update_note(session, note_id, note_text)
+    return await crud_notes.update_note(session, note_id, note_text.text)
 
 
 @router.delete('/delete/{note_id}')
