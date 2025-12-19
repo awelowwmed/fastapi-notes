@@ -1,12 +1,9 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
 from contextlib import asynccontextmanager
 
-from .database import db_helper, Base
-from .models import Note
-from .schemas import NoteCreateSchemas, NoteReadShemas
+from fastapi import FastAPI
 
+from .database import Base, db_helper
+from app.api.notes import router as note_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -18,24 +15,4 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-
-
-@app.post("/notes", response_model=NoteReadShemas)
-async def create_note(
-    note_in: NoteCreateSchemas, session: AsyncSession = Depends(db_helper.get_db_session)
-):
-    # Превращаем схему Pydantic в модель SQLAlchemy
-    new_note = Note(**note_in.model_dump())
-    session.add(new_note)
-    await session.commit()  # Сохраняем в базу
-    await session.refresh(new_note)  # Получаем созданный ID
-    return new_note
-
-
-# 3. Ручка получения всех заметок (GET)
-@app.get("/notes", response_model=list[NoteCreateSchemas])
-async def get_notes(session: AsyncSession = Depends(db_helper.get_db_session)):
-    # Делаем асинхронный запрос SELECT
-    stmt = select(Note).order_by(Note.id)
-    result = await session.execute(stmt)
-    return result.scalars().all()
+app.include_router(note_router)
