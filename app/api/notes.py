@@ -14,5 +14,5 @@ async def get_lst_notes(session: AsyncSession = Depends(get_session)):
 
 
 @router.post('/create_note')
-async def create_note(session: AsyncSession = Depends(get_session), note_in: NoteCreateSchemas):
+async def create_note(note_in: NoteCreateSchemas, session: AsyncSession = Depends(get_session)):
     return await crud_notes.create_note(session, note_in)
