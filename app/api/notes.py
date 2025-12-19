@@ -18,4 +18,4 @@ async def get_lst_notes(session: AsyncSession = Depends(get_session)):
 async def create_note(
     note_in: NoteCreateSchemas, session: AsyncSession = Depends(get_session)
 ):
-    return await crud_notes.create_note(session, note_in)
+    return await crud_notes.create_note(session, note_in.text)
