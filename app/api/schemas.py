@@ -2,12 +2,12 @@ from pydantic import BaseModel
 
 
 class NoteCreateSchemas(BaseModel):
-    text: str 
+    text: str
 
 
 class NoteReadShemas(BaseModel):
-    id: int 
-    text: str 
+    id: int
+    text: str
 
     class Congig:
         from_attridutes = True

@@ -2,8 +2,10 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from .database import Base, db_helper
 from app.api.notes import router as note_router
+
+from .database import Base, db_helper
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
