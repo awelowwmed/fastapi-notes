@@ -22,3 +22,4 @@ class DatabaseHelper:
 
 
 db_helper = DatabaseHelper(url=settings.database_url, echo=True)
+get_session = db_helper.get_db_session
