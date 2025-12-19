@@ -26,6 +26,6 @@ async def update_note(session: AsyncSession, note_id: int, new_text: str):
 
 
 async def delete_note(session: AsyncSession, note_id: int):
-    query = delete(Note).wehere(Note.id == note_id)
+    query = delete(Note).where(Note.id == note_id)
     await session.execute(query)
     await session.commit()
