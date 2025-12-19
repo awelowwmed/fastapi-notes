@@ -15,3 +15,8 @@ class NoteReadShemas(BaseModel):
 
     class Congig:
         from_attridutes = True
+
+
+class NoteUpdateSchemas(BaseModel):
+    text: str 
+    complite: bool

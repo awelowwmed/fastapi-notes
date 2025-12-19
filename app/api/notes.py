@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api import crud_notes
 from app.database import get_session
 
-from .schemas import NoteCreateSchemas
+from .schemas import NoteCreateSchemas, NoteUpdateSchemas
 
 router = APIRouter(prefix="/notes", tags=["Notes"])
 
@@ -22,7 +22,7 @@ async def create_note(
 
 
 @router.post('/update_note/{note_id}')
-async def update_note(note_text: NoteCreateSchemas, note_id: int, session: AsyncSession = Depends(get_session)):
+async def update_note(note_text: NoteUpdateSchemas, note_id: int, session: AsyncSession = Depends(get_session)):
     return await crud_notes.update_note(session, note_id, note_text.text)
 
 
