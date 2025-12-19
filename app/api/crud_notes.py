@@ -19,8 +19,8 @@ async def create_note(session: AsyncSession, note_data: NoteCreateSchemas):
     return new_note
 
 
-async def update_note(session: AsyncSession, note_id: int, new_text: str):
-    query = update(Note).where(Note.id == note_id).values(text=new_text)
+async def update_note(session: AsyncSession, note_id: int, new_task: str):
+    query = update(Note).where(Note.id == note_id).values(text=new_task.text, complite=new_task.complite)
     await session.execute(query)
     await session.commit()
 
