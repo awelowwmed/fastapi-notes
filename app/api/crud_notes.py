@@ -32,7 +32,7 @@ async def create_note(session: AsyncSession, note_data: NoteCreateSchemas):
 
 
 async def update_note(session: AsyncSession, note_id: int, new_task: str):
-    result = await session.execute(select(Note).where(note_id=Note.id))
+    result = await session.execute(select(Note).where(note_id==Note.id))
     note = result.scalars().first()
 
     if not note:
