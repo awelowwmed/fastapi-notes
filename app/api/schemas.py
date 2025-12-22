@@ -11,7 +11,7 @@ class NoteReadShemas(BaseModel):
     id: int
     text: str
     datetime: datetime
-    complited: bool
+    complite: bool
 
     class Congig:
         from_attridutes = True
