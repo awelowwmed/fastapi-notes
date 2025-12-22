@@ -11,7 +11,7 @@ from .schemas import NoteCreateSchemas, NoteReadShemas, NoteUpdateSchemas
 router = APIRouter(prefix="/notes", tags=["Notes"])
 
 
-@router.get("/", response_model=List[NoteReadShemas])
+@router.get("/")
 async def get_lst_notes(
     session: AsyncSession = Depends(get_session), limit: int = None, offset: int = None
 ):
