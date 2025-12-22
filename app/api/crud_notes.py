@@ -1,4 +1,5 @@
-from sqlalchemy import delete, select, update
+from fastapi import HTTPException
+from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import Note
@@ -31,14 +32,20 @@ async def create_note(session: AsyncSession, note_data: NoteCreateSchemas):
 
 
 async def update_note(session: AsyncSession, note_id: int, new_task: str):
-    query = (
-        update(Note)
-        .where(Note.id == note_id)
-        .values(text=new_task.text, complite=new_task.complite)
-    )
-    await session.execute(query)
+    result = await session.execute(select(Note).where(note_id=Note.id))
+    note = result.scalars().first()
+
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+
+    note.text = new_task.text
+    note.complite = new_task.complite
+
     await session.commit()
-    return {"status": f"Note with {note_id} successful update."}
+
+    await session.refresh(note)
+
+    return note
 
 
 async def delete_note(session: AsyncSession, note_id: int):

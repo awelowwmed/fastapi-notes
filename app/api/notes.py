@@ -30,7 +30,7 @@ async def update_note(
     update_note: NoteUpdateSchemas,
     note_id: int,
     session: AsyncSession = Depends(get_session),
-) -> dict:
+) -> NoteReadShemas:
     return await crud_notes.update_note(session, note_id, update_note)
 
 
