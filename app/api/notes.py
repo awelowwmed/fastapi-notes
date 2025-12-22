@@ -6,14 +6,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api import crud_notes
 from app.database import get_session
 
-from .schemas import NoteCreateSchemas, NoteReadSchemas, NoteUpdateSchemas
+from .schemas import NoteCreateSchemas, NoteReadShemas, NoteUpdateSchemas
 
 router = APIRouter(prefix="/notes", tags=["Notes"])
 
 
-@router.get("/", response_model=List[NoteReadSchemas])
+@router.get("/", response_model=List[NoteReadShemas])
 async def get_lst_notes(
-    session: AsyncSession = Depends(get_session), limit: int = None, offet: int = None
+    session: AsyncSession = Depends(get_session), limit: int = None, offset: int = None
 ):
     return await crud_notes.get_all_notes(session, limit_cnt=limit, offset_cnt=offset)
 
