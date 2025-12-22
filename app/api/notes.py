@@ -21,7 +21,7 @@ async def create_note(
     return await crud_notes.create_note(session, note_in.text)
 
 
-@router.post('/update_note/{note_id}')
+@router.patch('/update_note/{note_id}')
 async def update_note(update_note: NoteUpdateSchemas, note_id: int, session: AsyncSession = Depends(get_session)):
     return await crud_notes.update_note(session, note_id, update_note)
 

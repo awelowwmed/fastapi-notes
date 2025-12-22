@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-
+from fastapi.responses import RedirectResponse
 from fastapi import FastAPI
 
 from app.api.notes import router as note_router
@@ -18,3 +18,8 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 app.include_router(note_router)
+
+
+@app.get("/")
+async def redirect_to_swagger():
+    return RedirectResponse(url='/docs')
