@@ -22,10 +22,10 @@ async def create_note(
 
 
 @router.patch('/update_note/{note_id}')
-async def update_note(update_note: NoteUpdateSchemas, note_id: int, session: AsyncSession = Depends(get_session)):
+async def update_note(update_note: NoteUpdateSchemas, note_id: int, session: AsyncSession = Depends(get_session)) -> dict:
     return await crud_notes.update_note(session, note_id, update_note)
 
 
 @router.delete('/delete/{note_id}')
-async def delete_note(note_id: int, session: AsyncSession = Depends(get_session)):
+async def delete_note(note_id: int, session: AsyncSession = Depends(get_session))-> dict:
     return await crud_notes.delete_note(session, note_id)
